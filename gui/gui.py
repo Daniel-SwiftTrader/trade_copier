@@ -71,6 +71,7 @@ class TradingGUI:
 
         # --- account strip (row 0) ---
         self._build_account_panel()
+        self._build_strategy_panel()
 
         # --- Exposure (row 1) ---
         self.usd_columns = (
@@ -82,7 +83,7 @@ class TradingGUI:
             columns=self.usd_columns,
             col_widths=(110, 130, 120, 120, 110, 130, 130, 80, 80, 220, 90),
         )
-        self._place_section(self.usd_frame, row=1)
+        self._place_section(self.usd_frame, row=2)
 
         # --- Pair Net Positions (row 2) ---
         self.pair_columns = ("Symbol", "Trades", "Long", "Short", "Net Position")
@@ -91,7 +92,7 @@ class TradingGUI:
             columns=self.pair_columns,
             col_widths=(110, 90, 90, 90, 110),
         )
-        self._place_section(self.pair_frame, row=2)
+        self._place_section(self.pair_frame, row=3)
 
         # --- Trade Log (row 3) ---
         self.log_columns = ("Time", "Symbol", "Type", "Volume", "Price", "Reason")
@@ -100,7 +101,7 @@ class TradingGUI:
             columns=self.log_columns,
             col_widths=(150, 90, 70, 90, 100, 400),
         )
-        self._place_section(self.log_frame, row=3)
+        self._place_section(self.log_frame, row=4)
 
         # --- bottom controls (row 4) ---
         self._build_buttons_and_summary()
@@ -111,8 +112,8 @@ class TradingGUI:
     # ----- builders -----
 
     def _build_account_panel(self):
-        frm = ttk.LabelFrame(self.root, text="Trading Account")
-        frm.grid(row=0, column=0, sticky="ew", padx=10, pady=(10, 6))
+        frm = ttk.LabelFrame(self.root, text=f"Trading Account: {CONFIG['connection']['terminal_login']}")
+        frm.grid(row=0, column=0, sticky="ew", padx=10, pady=(10, 2))
         for i in range(8):
             frm.columnconfigure(i, weight=1)
 
@@ -127,6 +128,21 @@ class TradingGUI:
         self.lbl_margin.grid(row=0, column=2, padx=8, pady=4, sticky="w")
         self.lbl_profit.grid(row=0, column=3, padx=8, pady=4, sticky="w")
         self.lbl_time.grid(row=0, column=7, padx=8, pady=4, sticky="e")
+
+    def _build_strategy_panel(self):
+        frm = ttk.LabelFrame(self.root, text=f"Manager Account: {CONFIG['connection']['manager_login']}")
+        frm.grid(row=1, column=0, sticky="ew", padx=10, pady=(0, 4))
+        for i in range(8):
+            frm.columnconfigure(i, weight=1)
+        self.lbl_follow_trade = ttk.Label(frm, text=f"Follow type: Reverse", font=("Segoe UI", 10))
+        self.lbl_consolidate_usd    = ttk.Label(frm, text=f"Consolidate USD: {CONFIG['routing']['consolidate_to_usd']}", font=("Segoe UI", 10))
+        self.lbl_position_multiplier  = ttk.Label(frm, text=f"Position multiplier: {CONFIG['trade_management']['trade_size_multiplier']} sec", font=("Segoe UI", 10))
+        self.lbl_copy_timeframe  = ttk.Label(frm, text=f"Copy timeframe: {CONFIG['runtime']['cycle_seconds']}", font=("Segoe UI", 10))
+
+        self.lbl_follow_trade.grid(row=0, column=0, padx=8, pady=4, sticky="w")
+        self.lbl_consolidate_usd.grid(row=0, column=1, padx=8, pady=4, sticky="W")
+        self.lbl_copy_timeframe.grid(row=0, column=2, padx=8, pady=4, sticky="w")
+        self.lbl_position_multiplier.grid(row=0, column=3, padx=8, pady=4, sticky="w")
 
     def _build_labeled_tree(self, title: str, columns: tuple, col_widths: tuple):
         frame = ttk.LabelFrame(self.root, text=title)
@@ -157,7 +173,7 @@ class TradingGUI:
 
     def _build_buttons_and_summary(self):
         frm = ttk.Frame(self.root)
-        frm.grid(row=4, column=0, sticky="ew", padx=10, pady=(6, 10))
+        frm.grid(row=5, column=0, sticky="ew", padx=10, pady=(6, 10))
         frm.columnconfigure(0, weight=1)
 
         btns = ttk.Frame(frm)
