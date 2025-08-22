@@ -137,12 +137,14 @@ class TradingGUI:
         self.lbl_follow_trade = ttk.Label(frm, text=f"Follow type: Reverse", font=("Segoe UI", 10))
         self.lbl_consolidate_usd    = ttk.Label(frm, text=f"Consolidate USD: {CONFIG['routing']['consolidate_to_usd']}", font=("Segoe UI", 10))
         self.lbl_position_multiplier  = ttk.Label(frm, text=f"Position multiplier: {CONFIG['trade_management']['trade_size_multiplier']} sec", font=("Segoe UI", 10))
+        self.lbl_daily_loss_limit  = ttk.Label(frm, text=f"Daily loss limit: {CONFIG['risk_management']['daily_loss_limit']} sec", font=("Segoe UI", 10))
         self.lbl_copy_timeframe  = ttk.Label(frm, text=f"Copy timeframe: {CONFIG['runtime']['cycle_seconds']}", font=("Segoe UI", 10))
 
         self.lbl_follow_trade.grid(row=0, column=0, padx=8, pady=4, sticky="w")
         self.lbl_consolidate_usd.grid(row=0, column=1, padx=8, pady=4, sticky="W")
-        self.lbl_copy_timeframe.grid(row=0, column=2, padx=8, pady=4, sticky="w")
-        self.lbl_position_multiplier.grid(row=0, column=3, padx=8, pady=4, sticky="w")
+        self.lbl_position_multiplier.grid(row=0, column=2, padx=8, pady=4, sticky="w")
+        self.lbl_daily_loss_limit.grid(row=0, column=3, padx=8, pady=4, sticky="w")
+        self.lbl_copy_timeframe.grid(row=0, column=4, padx=8, pady=4, sticky="w")
 
     def _build_labeled_tree(self, title: str, columns: tuple, col_widths: tuple):
         frame = ttk.LabelFrame(self.root, text=title)
