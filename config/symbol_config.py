@@ -1,106 +1,107 @@
 """
-Symbol configuration for trading/execution and exposure calculations.
+FX-only symbol configuration for trading/execution and exposure calculations.
 
 Notes
 -----
-- This file intentionally contains *no ATR* references.
-- `symbol_mapping` lets you map Manager symbols (exposure source) to
-  Terminal symbols (execution). If your broker uses identical names,
-  keep the mapping 1:1.
-- `currency_to_usd_pair` is used to translate non-USD exposures into a
-  USD pair for conversion (e.g., CHF → USDCHF).
+- No ATR logic here.
+- `symbol_mapping` maps Manager symbols to Terminal symbols (".ecn" suffix used here — adjust to match your broker).
+- `currency_to_usd_pair` covers *all currencies used* in the FX list so rc4-style USD consolidation can work.
 """
 
 SYMBOL_CONFIG = {
-    # Symbols we monitor/trade. Feel free to extend.
+    # FX symbols we monitor/trade.
     "symbols": [
-        # Majors
-        "EURUSD", "GBPUSD", "USDJPY", "USDCAD", "USDCHF", "AUDUSD", "NZDUSD",
-        # JPY crosses
-        "EURJPY", "GBPJPY", "AUDJPY", "CADJPY", "NZDJPY",
-        # Common crosses
-        "EURAUD", "EURGBP", "EURNZD", "AUDNZD", "GBPAUD", "GBPCAD", "GBPNZD",
-        "AUDCHF", "CADCHF", "EURCHF", "GBPCHF", "NZDCHF",
-        # Metals & Crypto
-        "XAUUSD", "XAGUSD", "BTCUSD", "ETHUSD", "SOLUSD",
+        "AUDCAD", "AUDJPY", "AUDNZD", "AUDSGD", "AUDCHF", "AUDUSD",
+        "CADJPY", "CADCHF",
+        "EURAUD", "EURCAD", "EURDKK", "EURGBP", "EURHUF", "EURJPY", "EURNZD", "EURNOK", "EURPLN", "EURSEK", "EURCHF", "EURUSD",
+        "GBPAUD", "GBPCAD", "GBPJPY", "GBPNZD", "GBPCHF", "GBPUSD",
+        "NZDCAD", "NZDJPY", "NZDCHF", "NZDUSD",
+        "CHFDKK", "CHFSGD", "CHFJPY",
+        "USDCAD", "USDCNH", "USDCZK", "USDDKK", "USDHKD", "USDHUF", "USDJPY", "USDMXN", "USDNOK", "USDPLN", "USDSGD", "USDZAR", "USDSEK", "USDCHF",
     ],
 
-    # Manager → Terminal symbol mapping (1:1 by default)
+    # Manager → Terminal mapping (adjust suffixes to your broker's symbols)
     "symbol_mapping": {
-        "EURUSD": "EURUSD.ecn",
-        "GBPUSD": "GBPUSD.ecn",
-        "USDJPY": "USDJPY.ecn",
-        "USDCAD": "USDCAD.ecn",
-        "USDCHF": "USDCHF.ecn",
-        "AUDUSD": "AUDUSD.ecn",
-        "NZDUSD": "NZDUSD.ecn",
-        "EURJPY": "EURJPY.ecn",
-        "GBPJPY": "GBPJPY.ecn",
+        "AUDCAD": "AUDCAD.ecn",
         "AUDJPY": "AUDJPY.ecn",
-        "CADJPY": "CADJPY.ecn",
-        "NZDJPY": "NZDJPY.ecn",
-        "EURAUD": "EURAUD.ecn",
-        "EURGBP": "EURGBP.ecn",
-        "EURNZD": "EURNZD.ecn",
         "AUDNZD": "AUDNZD.ecn",
+        "AUDSGD": "AUDSGD.ecn",
+        "AUDCHF": "AUDCHF.ecn",
+        "AUDUSD": "AUDUSD.ecn",
+        "CADJPY": "CADJPY.ecn",
+        "CADCHF": "CADCHF.ecn",
+        "EURAUD": "EURAUD.ecn",
+        "EURCAD": "EURCAD.ecn",
+        "EURDKK": "EURDKK.ecn",
+        "EURGBP": "EURGBP.ecn",
+        "EURHUF": "EURHUF.ecn",
+        "EURJPY": "EURJPY.ecn",
+        "EURNZD": "EURNZD.ecn",
+        "EURNOK": "EURNOK.ecn",
+        "EURPLN": "EURPLN.ecn",
+        "EURSEK": "EURSEK.ecn",
+        "EURCHF": "EURCHF.ecn",
+        "EURUSD": "EURUSD.ecn",
         "GBPAUD": "GBPAUD.ecn",
         "GBPCAD": "GBPCAD.ecn",
+        "GBPJPY": "GBPJPY.ecn",
         "GBPNZD": "GBPNZD.ecn",
-        "AUDCHF": "AUDCHF.ecn",
-        "CADCHF": "CADCHF.ecn",
-        "EURCHF": "EURCHF.ecn",
         "GBPCHF": "GBPCHF.ecn",
+        "GBPUSD": "GBPUSD.ecn",
+        "NZDCAD": "NZDCAD.ecn",
+        "NZDJPY": "NZDJPY.ecn",
         "NZDCHF": "NZDCHF.ecn",
-        "XAUUSD": "XAUUSD.ecn",
-        "XAGUSD": "XAGUSD.ecn",
-        "BTCUSD": "BTCUSD.ecn",
-        "ETHUSD": "ETHUSD.ecn",
-        "SOLUSD": "SOLUSD.ecn",
+        "NZDUSD": "NZDUSD.ecn",
+        "CHFDKK": "CHFDKK.ecn",
+        "CHFSGD": "CHFSGD.ecn",
+        "CHFJPY": "CHFJPY.ecn",
+        "USDCAD": "USDCAD.ecn",
+        "USDCNH": "USDCNH.ecn",
+        "USDCZK": "USDCZK.ecn",
+        "USDDKK": "USDDKK.ecn",
+        "USDHKD": "USDHKD.ecn",
+        "USDHUF": "USDHUF.ecn",
+        "USDJPY": "USDJPY.ecn",
+        "USDMXN": "USDMXN.ecn",
+        "USDNOK": "USDNOK.ecn",
+        "USDPLN": "USDPLN.ecn",
+        "USDSGD": "USDSGD.ecn",
+        "USDZAR": "USDZAR.ecn",
+        "USDSEK": "USDSEK.ecn",
+        "USDCHF": "USDCHF.ecn",
     },
 
-    # Optional: per-symbol metadata frequently needed in exposure calcs or UI.
-    # The engine uses 100000.0 as a default contract size where appropriate.
-    # Add or adjust values to match your broker if needed.
+    # Metadata (fallbacks; Terminal info takes precedence at runtime)
     "metadata": {
-        "EURUSD": {"contract_size": 100000.0, "min_lot": 0.01, "pip_size": 0.0001},
-        "GBPUSD": {"contract_size": 100000.0, "min_lot": 0.01, "pip_size": 0.0001},
-        "USDJPY": {"contract_size": 100000.0, "min_lot": 0.01, "pip_size": 0.01},
-        "USDCAD": {"contract_size": 100000.0, "min_lot": 0.01, "pip_size": 0.0001},
-        "USDCHF": {"contract_size": 100000.0, "min_lot": 0.01, "pip_size": 0.0001},
-        "AUDUSD": {"contract_size": 100000.0, "min_lot": 0.01, "pip_size": 0.0001},
-        "NZDUSD": {"contract_size": 100000.0, "min_lot": 0.01, "pip_size": 0.0001},
-        "EURJPY": {"contract_size": 100000.0, "min_lot": 0.01, "pip_size": 0.01},
-        "GBPJPY": {"contract_size": 100000.0, "min_lot": 0.01, "pip_size": 0.01},
-        "AUDJPY": {"contract_size": 100000.0, "min_lot": 0.01, "pip_size": 0.01},
-        "CADJPY": {"contract_size": 100000.0, "min_lot": 0.01, "pip_size": 0.01},
-        "NZDJPY": {"contract_size": 100000.0, "min_lot": 0.01, "pip_size": 0.01},
-        "EURAUD": {"contract_size": 100000.0, "min_lot": 0.01, "pip_size": 0.0001},
-        "EURGBP": {"contract_size": 100000.0, "min_lot": 0.01, "pip_size": 0.0001},
-        "EURNZD": {"contract_size": 100000.0, "min_lot": 0.01, "pip_size": 0.0001},
-        "AUDNZD": {"contract_size": 100000.0, "min_lot": 0.01, "pip_size": 0.0001},
-        "GBPAUD": {"contract_size": 100000.0, "min_lot": 0.01, "pip_size": 0.0001},
-        "GBPCAD": {"contract_size": 100000.0, "min_lot": 0.01, "pip_size": 0.0001},
-        "GBPNZD": {"contract_size": 100000.0, "min_lot": 0.01, "pip_size": 0.0001},
-        "AUDCHF": {"contract_size": 100000.0, "min_lot": 0.01, "pip_size": 0.0001},
-        "CADCHF": {"contract_size": 100000.0, "min_lot": 0.01, "pip_size": 0.0001},
-        "EURCHF": {"contract_size": 100000.0, "min_lot": 0.01, "pip_size": 0.0001},
-        "GBPCHF": {"contract_size": 100000.0, "min_lot": 0.01, "pip_size": 0.0001},
-        "NZDCHF": {"contract_size": 100000.0, "min_lot": 0.01, "pip_size": 0.0001},
-        "XAUUSD": {"contract_size": 100.0,    "min_lot": 0.01, "pip_size": 0.01},
-        "XAGUSD": {"contract_size": 5000.0,   "min_lot": 0.01, "pip_size": 0.001},
-        "BTCUSD": {"contract_size": 1.0,      "min_lot": 0.01, "pip_size": 0.1},
-        "ETHUSD": {"contract_size": 1.0,      "min_lot": 0.01, "pip_size": 0.01},
-        "SOLUSD": {"contract_size": 1.0,      "min_lot": 0.01, "pip_size": 0.01},
+        # Generic FX default: 100k contract, 0.01 min lot, 0.0001 pip
+        # JPY-quoted pairs use pip_size 0.01
+        **{p: {"contract_size": 100000.0, "min_lot": 0.01, "pip_size": 0.0001} for p in [
+            "AUDCAD","AUDNZD","AUDSGD","AUDCHF","AUDUSD","EURAUD","EURCAD","EURDKK","EURGBP","EURHUF","EURNZD","EURNOK","EURPLN","EURSEK","EURCHF","EURUSD",
+            "GBPAUD","GBPCAD","GBPNZD","GBPCHF","GBPUSD","NZDCAD","NZDCHF","NZDUSD",
+            "CHFDKK","CHFSGD","USDCAD","USDCNH","USDCZK","USDDKK","USDHKD","USDHUF","USDMXN","USDNOK","USDPLN","USDSGD","USDZAR","USDSEK","USDCHF"
+        ]},
+        **{p: {"contract_size": 100000.0, "min_lot": 0.01, "pip_size": 0.01} for p in [
+            "AUDJPY","CADJPY","EURJPY","GBPJPY","NZDJPY","CHFJPY","USDJPY"
+        ]},
     },
 
-    # Map non-USD currencies to a USD conversion pair.
+    # Map every non-USD currency we use to its USD pair
     "currency_to_usd_pair": {
         "AUD": "AUDUSD",
-        "EUR": "EURUSD",
-        "GBP": "GBPUSD",
-        "NZD": "NZDUSD",
         "CAD": "USDCAD",
         "CHF": "USDCHF",
+        "EUR": "EURUSD",
+        "GBP": "GBPUSD",
         "JPY": "USDJPY",
-    },
+	    "CZK": "USDCZK",
+	    "DKK": "USDDKK",
+	    "HKD": "USDHKD",
+	    "HUF": "USDHUF",
+	    "MXN": "USDMXN",
+	    "NOK": "USDNOK",
+	    "PLN": "USDPLN",
+	    "SGD": "USDSGD",
+	    "ZAR": "USDZAR",	
+	    "SEK": "USDSEK"
+     },
 }

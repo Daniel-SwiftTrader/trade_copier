@@ -392,7 +392,7 @@ class TradingEngine:
                 pass
         else:
             # No consolidation: operate on manager rows and convert to USD equivalents
-            trade_rows = manager_rows
+            trade_rows = manager_rows #<----- Redundant
             net_df = pd.DataFrame(trade_rows)
             usd_df, _ = to_usd_equivalents(net_df, self._mid_price)
 
@@ -424,7 +424,7 @@ class TradingEngine:
         # 4) Decide & execute per (possibly consolidated) USD symbol
         trades_executed = 0
         gui_usd_rows: list[dict] = []
-
+        
         for _, row in usd_df.iterrows():
             symbol = row["symbol"]
             current_net = float(row["net_volume"])
@@ -436,9 +436,12 @@ class TradingEngine:
             # Target/Delta (ATR-free)
             mult = CONFIG["trade_management"]["fixed_multiplier"] if CONFIG["trade_management"]["use_fixed_multiplier"] \
                    else CONFIG["trade_management"]["trade_size_multiplier"]
-            target = -current_net * mult
-            delta = target - current_pos
-
+            if CONFIG['trade_management']['follow_position']:
+                target = current_net * mult
+                delta = target - current_pos
+            else:
+                target = -current_net * mult
+                delta = target - current_pos
             # Round DOWN to symbol's min lot (terminal -> fallback to symbol_config)
             min_lot = self._min_lot_with_fallback(symbol)
             delta = round_down_to_step(delta, min_lot)

@@ -71,9 +71,11 @@ class TradingGUI:
 
         # --- account strip (row 0) ---
         self._build_account_panel()
+
+        # --- strategy strip (row 1) ---
         self._build_strategy_panel()
 
-        # --- Exposure (row 1) ---
+        # --- Exposure (row 2) ---
         self.usd_columns = (
             "Symbol", "Net USD Position", "Trade Position", "Target Position",
             "Trade Delta", "Trend", "Trend Strength", "RSI", "MACD", "Reason", "PNL"
@@ -85,7 +87,7 @@ class TradingGUI:
         )
         self._place_section(self.usd_frame, row=2)
 
-        # --- Pair Net Positions (row 2) ---
+        # --- Pair Net Positions (row 3) ---
         self.pair_columns = ("Symbol", "Trades", "Long", "Short", "Net Position")
         self.pair_frame, self.pair_tree = self._build_labeled_tree(
             title="Pair Net Positions",
@@ -94,7 +96,7 @@ class TradingGUI:
         )
         self._place_section(self.pair_frame, row=3)
 
-        # --- Trade Log (row 3) ---
+        # --- Trade Log (row 4) ---
         self.log_columns = ("Time", "Symbol", "Type", "Volume", "Price", "Reason")
         self.log_frame, self.log_tree = self._build_labeled_tree(
             title="Trade Log (today)",
@@ -103,7 +105,7 @@ class TradingGUI:
         )
         self._place_section(self.log_frame, row=4)
 
-        # --- bottom controls (row 4) ---
+        # --- bottom controls (row 5) ---
         self._build_buttons_and_summary()
 
         # Grid weighting
