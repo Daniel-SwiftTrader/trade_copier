@@ -19,10 +19,11 @@ CONFIG = {
     # --- Trade Management ---
     "trade_management": {
         # Execution & positioning parameters
+        "follow_position": False,
         "min_positions_per_symbol": 3,
         "max_position_size": 300,           # Max absolute position (lots) per symbol
         "base_trade_volume": 0.01,          # Fallback base volume (lots)
-
+        
         # Net-exposure-driven sizing (no ATR). If `use_fixed_multiplier` is True,
         # the system falls back to `fixed_multiplier` instead.
         "use_fixed_multiplier": False,
